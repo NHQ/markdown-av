@@ -1,6 +1,6 @@
 {
   "name": "markdown-av",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "adds audio and video support to markdown image-tag syntax",
   "main": "index.js",
   "scripts": {
