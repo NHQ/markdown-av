@@ -21,9 +21,10 @@ module.exports = function(text){
   alts = Array.prototype.map.call(alts, function(e){
     var src = e.dataset['src']
     var ext = src.slice('.')[-1]
-    var match = lookup(src).match('(audio|video|image)\/*')
+    var match = lookup(src).match('(audio|video|image|html)\/*')
     var type = null
     if(match) type = match[1] === 'image' ? 'img' : match[1]
+    if(match) type = match[1] === 'html' ? 'iframe' : match[1]
     if(type){
       var node = document.createElement(type)
       node.src = src
