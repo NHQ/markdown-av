@@ -38,7 +38,7 @@ module.exports = function(text, cb){
       node.src = src
       if(type === 'video' || type === 'audio') node.controls = true
       if(match[1] === 'sha256'){
-        cb(node)
+        cb(node, src.slice(1))
       }
       return [e, node]
     }
