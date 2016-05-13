@@ -23,22 +23,21 @@ module.exports = function(text, cb){
     var src = e.dataset['src']
     var ext = src.slice('.')[-1]
     var match
-    if(ext==='sha256'){
-      match = 'sha256'
-    }
-    else{
-      match = lookup(src)
-    }
+    match = lookup(src)
     if(match) match = match.match('(audio|video|image|html|sha256)\/*')
     var type = null
     if(match) type = match[1] === 'image' ? 'img' : match[1]
     if(match) type = match[1] === 'html' ? 'iframe' : match[1]
+    if(msg.isBlob(src)){
+      match = [true, 'sha256']
+      type = 'p'
+    }
     if(type){
+      if(type === 'video' || type === 'audio') node.controls = true
       var node = document.createElement(type)
       node.src = src
-      if(type === 'video' || type === 'audio') node.controls = true
       if(match[1] === 'sha256'){
-        cb(node, src.slice(1))
+        cb(node, src) //new Buffer(src.slice(1).split('.')[0]).toString())
       }
       return [e, node]
     }
