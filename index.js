@@ -33,12 +33,13 @@ module.exports = function(text, cb){
       type = 'p'
     }
     if(type){
-      if(type === 'video' || type === 'audio') node.controls = true
       var node = document.createElement(type)
+      if(type === 'video' || type === 'audio') node.controls = true
       node.src = src
-      if(match[1] === 'sha256'){
-        cb(node, src) //new Buffer(src.slice(1).split('.')[0]).toString())
-      }
+      cb(node, src, type)
+      //if(match[1] === 'sha256'){
+       // cb(node, src) //new Buffer(src.slice(1).split('.')[0]).toString())
+      //}
       return [e, node]
     }
     else return false
